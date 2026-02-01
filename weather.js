@@ -1,11 +1,22 @@
 // SkyCast Weather Application
 // Secure version with external API key configuration
 
-// Check if CONFIG is loaded
-if (typeof CONFIG === 'undefined' || !CONFIG.WEATHER_API_KEY || CONFIG.WEATHER_API_KEY === 'YOUR_API_KEY_HERE') {
-    alert('Configuration Error: Please create config.js from config.example.js and add your API key.');
-    throw new Error('Missing or invalid config.js file');
+// Check if CONFIG is loaded (for local development)
+// For production, we'll use a different approach
+let API_KEY;
+
+if (typeof CONFIG !== 'undefined' && CONFIG.WEATHER_API_KEY && CONFIG.WEATHER_API_KEY !== 'YOUR_API_KEY_HERE') {
+    API_KEY = CONFIG.WEATHER_API_KEY;
+    console.log('Using API key from config.js');
+} else {
+    // For production deployment (Render), embed the key here temporarily
+    // This is decoded at runtime to provide basic obfuscation
+    const encodedKey = 'NjgzNDU2NDMwMDk3ZTRjYzhhMzMxNTI2NTQyNTEwMTI=';
+    API_KEY = atob(encodedKey);
+    console.log('Using embedded API key for production');
 }
+
+const DEFAULT_CITY = (typeof CONFIG !== 'undefined' && CONFIG.DEFAULT_CITY) ? CONFIG.DEFAULT_CITY : 'Kolkata';
 
 // Security: Disable right-click and common dev tools shortcuts (basic protection only)
 document.addEventListener('contextmenu', e => e.preventDefault());
@@ -33,7 +44,7 @@ const orb3 = document.getElementById('orb3');
 
 // Initialize app on page load
 document.addEventListener('DOMContentLoaded', () => {
-    fetchWeather(CONFIG.DEFAULT_CITY);
+    fetchWeather(DEFAULT_CITY);
     createAmbientParticles();
 });
 
@@ -78,9 +89,8 @@ locationBtn.addEventListener('click', () => {
 async function fetchWeather(query) {
     showLoading('Scanning satellite data...');
     try {
-        const apiKey = CONFIG.WEATHER_API_KEY;
         const response = await fetch(
-            `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(query)}&aqi=yes`
+            `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${encodeURIComponent(query)}&aqi=yes`
         );
 
         if (!response.ok) {

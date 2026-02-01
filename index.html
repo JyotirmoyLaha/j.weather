@@ -229,8 +229,8 @@
         </main>
     </div>
 
-    <!-- Load configuration first, then main app -->
-    <script src="config.js"></script>
+    <!-- Load configuration (optional for local dev), then main app -->
+    <script src="config.js" onerror="console.log('config.js not found, using embedded key')"></script>
     <script src="weather.js"></script>
 </body>
 </html>
