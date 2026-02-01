@@ -11,7 +11,7 @@ if (typeof CONFIG !== 'undefined' && CONFIG.WEATHER_API_KEY && CONFIG.WEATHER_AP
 } else {
     // For production deployment (Render), embed the key here temporarily
     // This is decoded at runtime to provide basic obfuscation
-    const encodedKey = 'NjgzNDU2NDMwMDk3ZTRjYzhhMzMxNTI2NTQyNTEwMTI=';
+    const encodedKey = 'Njg0NTY0MzAwOTdlNGNjOGEzMzE1MjY1NDI1MTAxMg==';
     API_KEY = atob(encodedKey);
     console.log('Using embedded API key for production');
 }
