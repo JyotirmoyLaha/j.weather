@@ -105,8 +105,8 @@ body {
     left: 0;
     width: 200%;
     height: 100%;
-    background: url('https://assets.codepen.io/123/fog1.png') repeat-x; 
-    background-size: contain;
+    background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 100%);
+    background-size: 200px 100%;
     opacity: 0;
     transition: opacity 1s;
     animation: cloud-drift 40s linear infinite;
