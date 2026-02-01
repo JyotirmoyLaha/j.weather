@@ -208,13 +208,7 @@ This project is open source under the [MIT License](LICENSE).
 
 ---
 
-<div align="center">
 
-### ⭐ Star this repository if you find it useful!
-
-**Built with ❤️ by Jyotirmoy Laha**
-
-</div>
 
 ## 📧 Contact
 
