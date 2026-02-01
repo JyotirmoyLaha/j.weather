@@ -1,6 +1,12 @@
 // SkyCast Weather Application
 // Secure version with external API key configuration
 
+// Check if CONFIG is loaded
+if (typeof CONFIG === 'undefined' || !CONFIG.WEATHER_API_KEY || CONFIG.WEATHER_API_KEY === 'YOUR_API_KEY_HERE') {
+    alert('Configuration Error: Please create config.js from config.example.js and add your API key.');
+    throw new Error('Missing or invalid config.js file');
+}
+
 // Security: Disable right-click and common dev tools shortcuts (basic protection only)
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.onkeydown = function(e) {
@@ -10,12 +16,6 @@ document.onkeydown = function(e) {
     if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
     if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
 };
-
-// Check if CONFIG is loaded
-if (typeof CONFIG === 'undefined') {
-    alert('Configuration Error: Please create config.js from config.example.js and add your API key.');
-    throw new Error('Missing config.js file');
-}
 
 // DOM Elements
 const searchForm = document.getElementById('searchForm');
