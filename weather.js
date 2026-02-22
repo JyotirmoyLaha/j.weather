@@ -11,7 +11,7 @@ if (typeof CONFIG !== 'undefined' && CONFIG.WEATHER_API_KEY && CONFIG.WEATHER_AP
 } else {
     // For production deployment (Render), embed the key here temporarily
     // This is decoded at runtime to provide basic obfuscation
-    const encodedKey = 'Njg0NTY0MzAwOTdlNGNjOGEzMzE1MjY1NDI1MTAxMg==';
+    const encodedKey = 'MzM4NTllMDUyNGM2NDRhZGE0NTE5MDAzNzI2MjIwMg==';
     API_KEY = atob(encodedKey);
     console.log('Using embedded API key for production');
 }
@@ -98,6 +98,10 @@ async function fetchWeather(query) {
             try {
                 const errorData = await response.json();
                 errorMsg = errorData.error.message;
+                // WeatherAPI returns misleading "Parameter q is missing" for invalid/expired keys
+                if (errorData.error.code === 1003 || errorData.error.code === 2006 || errorData.error.code === 2008) {
+                    errorMsg = 'Invalid or expired API key.';
+                }
             } catch {
                 errorMsg = `Error ${response.status}: ${response.statusText}`;
             }
