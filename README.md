@@ -7,7 +7,7 @@
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-### 🚀 **[Live Demo](https://j-weather.onrender.com/)** | [GitHub](https://github.com/JyotirmoyLaha/j.weather)
+### 🚀 **[Live Demo](https://j-weather.onrender.com/)**
 
 *A production-ready, responsive weather dashboard with real-time data, air quality monitoring, and intelligent UI adaptation*
 
