@@ -48,6 +48,16 @@ body {
     overflow: hidden;
 }
 
+/* Mobile: allow full scroll */
+@media (max-width: 640px) {
+
+    html,
+    body {
+        height: auto;
+        overflow: auto;
+    }
+}
+
 body {
     font-family: var(--font);
     background: var(--base-bg);
@@ -1035,30 +1045,302 @@ input {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   RESPONSIVE FALLBACK (tablet)
+   RESPONSIVE – TABLET  (≤ 900px)
 ══════════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
     :root {
-        --sidebar-right-w: 260px;
+        --sidebar-right-w: 240px;
     }
 
     .hero-headline {
-        font-size: 30px;
+        font-size: 28px;
     }
 
     .hero-sub {
-        display: none;
+        font-size: 12px;
+    }
+
+    .search-input-new {
+        width: 160px;
+    }
+
+    .search-input-new:focus {
+        width: 190px;
     }
 }
 
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE – PHONE  (≤ 640px)
+   Full single-column stacked layout — all data visible
+══════════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
+
+    /* ── dashboard becomes a single column ── */
     .dashboard {
-        grid-template-columns: var(--sidebar-left-w) 1fr;
-        grid-template-rows: 1fr auto;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        overflow: visible;
     }
 
-    .sidebar-right {
+    /* ── LEFT sidebar becomes a top navigation bar ── */
+    .sidebar-left {
+        flex-direction: row;
+        width: 100%;
+        height: 52px;
+        padding: 0 12px;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        justify-content: space-between;
+        flex-shrink: 0;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+    }
+
+    .sidebar-left .logo-wrap {
+        margin-bottom: 0;
+    }
+
+    .sidebar-left .sidebar-logo {
+        margin-bottom: 0;
+        width: 36px;
+        height: 36px;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        gap: 4px;
+    }
+
+    .sidebar-bottom {
+        flex-direction: row;
+        gap: 4px;
+    }
+
+    .logo-tooltip {
         display: none;
+    }
+
+    /* ── main panel – scrollable, full height ── */
+    .main-panel {
+        height: auto;
+        min-height: 70vh;
+        overflow: visible;
+        flex-shrink: 0;
+    }
+
+    /* ── hero background ── */
+    .hero-bg {
+        position: absolute;
+        inset: 0;
+        min-height: 100%;
+    }
+
+    /* ── top bar ── */
+    .top-bar {
+        padding: 10px 14px;
+        gap: 8px;
+    }
+
+    .search-input-new {
+        width: 140px;
+        height: 34px;
+        font-size: 12px;
+    }
+
+    .search-input-new:focus {
+        width: 160px;
+    }
+
+    /* ── hero text ── */
+    .hero-text {
+        padding: 20px 16px 0;
+        gap: 10px;
+        max-width: 100%;
+    }
+
+    .hero-headline {
+        font-size: 26px;
+        line-height: 1.15;
+    }
+
+    .hero-sub {
+        font-size: 12px;
+        max-width: 100%;
+    }
+
+    /* ── forecast strip ── */
+    .forecast-strip {
+        padding: 10px 12px 12px;
+        min-height: 90px;
+    }
+
+    .forecast-day {
+        padding: 4px 3px 0;
+    }
+
+    .day-temp {
+        font-size: 11px;
+    }
+
+    .day-name {
+        font-size: 9px;
+    }
+
+    .day-icon {
+        width: 22px;
+        height: 22px;
+    }
+
+    /* ── footer ── */
+    .site-footer {
+        height: auto;
+        flex-wrap: wrap;
+        padding: 8px 14px;
+        gap: 6px;
+        justify-content: center;
+    }
+
+    .footer-divider {
+        display: none;
+    }
+
+    .footer-left {
+        flex-shrink: 1;
+    }
+
+    .footer-credit {
+        font-size: 10.5px;
+    }
+
+    .footer-socials {
+        gap: 2px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .social-link span {
+        display: none;
+        /* icon only on phone */
+    }
+
+    .social-link {
+        padding: 5px 7px;
+    }
+
+    .footer-copy {
+        width: 100%;
+        text-align: center;
+        font-size: 9.5px;
+    }
+
+    /* ── RIGHT sidebar – full-width below main ── */
+    .sidebar-right {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+        overflow: visible;
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 14px 14px 20px;
+        gap: 12px;
+        background: var(--sidebar-bg);
+    }
+
+    /* primary card – slight layout tweak */
+    .primary-card {
+        padding: 14px 14px 12px;
+    }
+
+    .temp-huge {
+        font-size: 44px;
+    }
+
+    /* stats always 4 cols */
+    .stats-row {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+        padding: 8px 4px;
+    }
+
+    .stat-item>span {
+        font-size: 11px;
+    }
+
+    .stat-label {
+        font-size: 8px;
+    }
+
+    /* detail grid 3 cols for a bit tighter fit */
+    .detail-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    /* mini stats 2-col */
+    .mini-stats-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* location cards scroll row */
+    .location-cards {
+        flex-direction: row;
+        overflow-x: auto;
+        scrollbar-width: none;
+        gap: 10px;
+    }
+
+    .location-cards::-webkit-scrollbar {
+        display: none;
+    }
+
+    .loc-card {
+        min-width: 150px;
+        flex-shrink: 0;
+    }
+
+    /* sun card */
+    .sun-card {
+        padding: 12px 12px 10px;
+    }
+
+    .sun-arc-svg {
+        height: 50px;
+    }
+
+    /* other locations header */
+    .other-locations-header {
+        padding: 0 2px;
+    }
+}
+
+/* ── Extra-small phones (≤ 380px) ── */
+@media (max-width: 380px) {
+    .hero-headline {
+        font-size: 22px;
+    }
+
+    .temp-huge {
+        font-size: 38px;
+    }
+
+    .search-input-new {
+        width: 118px;
+    }
+
+    .search-input-new:focus {
+        width: 135px;
+    }
+
+    .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .detail-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
