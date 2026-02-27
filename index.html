@@ -1,236 +1,408 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyCast Weather</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>J.SkyCast – Premium Weather Dashboard</title>
+    <meta name="description"
+        content="J.SkyCast – A premium glassmorphism weather dashboard with real-time forecasts, air quality, and beautiful sky visuals.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="weather.modified.css">
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
 
-    <!-- New Dynamic Background Structure -->
-    <div id="bgContainer" class="bg-container">
-        <!-- Ambient particles container will be populated by JS -->
-        <div class="rain-layer"></div>
-        <div class="cloud-overlay"></div>
-        <div id="orb1" class="floating-orb orb-1" style="background: #1e40af;"></div>
-        <div id="orb2" class="floating-orb orb-2" style="background: #3b82f6;"></div>
-        <div id="orb3" class="floating-orb orb-3" style="background: #60a5fa;"></div>
-    </div>
+<body>
 
-    <!-- Main App Container -->
-    <div class="w-full max-w-5xl glass-panel rounded-3xl shadow-2xl overflow-hidden relative min-h-[600px] flex flex-col z-10">
-        
-        <!-- Header -->
-        <div class="p-6 md:p-8 border-b border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 z-10 bg-slate-900/40">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                    <i class="fas fa-cloud text-white text-lg"></i>
+    <!-- ══════════════════════════════════════
+     MAIN DASHBOARD GRID
+══════════════════════════════════════ -->
+    <div class="dashboard">
+
+        <!-- ──────────────────────────────────
+         LEFT SIDEBAR (60px)
+    ────────────────────────────────── -->
+        <aside class="sidebar-left" role="navigation" aria-label="Main navigation">
+            <!-- Logo with tooltip -->
+            <div class="logo-wrap">
+                <div class="sidebar-logo" title="J.SkyCast">
+                    <svg viewBox="0 0 24 24" fill="none" width="28" height="28">
+                        <path d="M12 2C8 2 5 5.5 5 9c0 4 3 7 7 10 4-3 7-6 7-10 0-3.5-3-7-7-7z"
+                            fill="rgba(78,205,196,0.9)" />
+                        <circle cx="12" cy="9" r="3" fill="white" opacity="0.9" />
+                        <path d="M4 18c-.5 1-.5 2 0 3h16c.5-1 .5-2 0-3" stroke="rgba(78,205,196,0.5)"
+                            stroke-width="1.5" />
+                    </svg>
                 </div>
-                <h1 class="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-200">
-                    J.SkyCast
-                </h1>
+                <span class="logo-tooltip">J.SkyCast</span>
             </div>
 
-            <form id="searchForm" class="relative w-full md:w-96 group">
-                <input 
-                    type="text" 
-                    id="searchInput"
-                    placeholder="Search city..." 
-                    class="search-input w-full bg-slate-950/50 border border-white/10 rounded-xl py-3 pl-12 pr-24 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all placeholder-slate-400 text-sm font-medium"
-                >
-                <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 transition-all duration-300 search-icon"></i>
-                
-                <!-- Location Button -->
-                <button 
-                    type="button"
-                    id="locationBtn"
-                    class="absolute right-12 top-2 bottom-2 text-slate-400 hover:text-blue-400 hover:bg-slate-800/50 px-2 rounded-lg transition-all duration-300 flex items-center justify-center group"
-                    title="Use current location"
-                >
-                    <i class="fas fa-location-crosshairs"></i>
+            <!-- Nav Icons – Dashboard only -->
+            <nav class="sidebar-nav">
+                <button class="nav-icon active" title="Dashboard" id="navHome">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" fill="none" stroke="currentColor" stroke-width="2" />
+                    </svg>
                 </button>
+            </nav>
+        </aside>
 
-                <!-- Search Button -->
-                <button 
-                    type="submit"
-                    class="absolute right-2 top-2 bottom-2 bg-blue-600 hover:bg-blue-500 text-white px-3 rounded-lg transition-all duration-300 flex items-center justify-center shadow-lg shadow-blue-600/20 hover:shadow-blue-600/40"
-                >
-                    <i class="fas fa-arrow-right text-xs"></i>
-                </button>
-            </form>
-        </div>
+        <!-- ──────────────────────────────────
+         MAIN HERO PANEL
+    ────────────────────────────────── -->
+        <main class="main-panel" id="mainPanel">
 
-        <!-- Content Area -->
-        <main class="flex-1 p-6 md:p-8 relative">
-            
+            <!-- Hero Background Image -->
+            <div class="hero-bg" id="heroBg">
+                <div class="hero-gradient-overlay"></div>
+            </div>
+
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="top-bar-right" style="margin-left:auto">
+                    <!-- Search Form -->
+                    <form id="searchForm" class="search-form" autocomplete="off">
+                        <button type="button" id="locationBtn" class="icon-btn" title="Use my location">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"
+                                height="16">
+                                <circle cx="12" cy="12" r="3" />
+                                <path d="M12 1v4M12 19v4M1 12h4M19 12h4" />
+                            </svg>
+                        </button>
+                        <div class="search-wrap">
+                            <svg class="search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" width="15" height="15">
+                                <circle cx="11" cy="11" r="8" />
+                                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                            </svg>
+                            <input type="text" id="searchInput" placeholder="Search city…" class="search-input-new">
+                            <button type="submit" class="search-submit-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14"
+                                    height="14">
+                                    <polyline points="9 18 15 12 9 6" />
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </header>
+
             <!-- Loading State -->
-            <div id="loader" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-slate-900/20 backdrop-blur-sm z-20">
-                <span class="loader mb-4"></span>
-                <p class="text-blue-300 font-medium animate-pulse" id="loadingText">Scanning satellite data...</p>
+            <div id="loader" class="loader-overlay hidden">
+                <div class="loader-ring"></div>
+                <p id="loadingText" class="loader-label">Scanning satellite data…</p>
             </div>
 
             <!-- Error State -->
-            <div id="error" class="hidden flex flex-col items-center justify-center py-20 text-center animate-enter">
-                <div class="w-16 h-16 bg-red-500/10 rounded-full flex items-center justify-center mb-4">
-                    <i class="fas fa-exclamation-triangle text-red-400 text-2xl"></i>
+            <div id="error" class="error-state hidden">
+                <div class="error-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                    </svg>
                 </div>
-                <h3 class="text-xl font-semibold text-white mb-2">Error</h3>
-                <p class="text-slate-400 max-w-xs mx-auto" id="errorMessage">Please check the city name and try again.</p>
+                <p id="errorMessage">Please check the city name and try again.</p>
             </div>
 
-            <!-- Weather Content -->
-            <div id="weatherContent" class="hidden">
-                
-                <!-- Hero Section -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8 animate-enter">
-                    <!-- Main Info -->
-                    <div class="flex flex-col justify-center">
-                        <div class="flex items-center gap-2 text-blue-300 mb-2 font-medium">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span id="locationName" class="text-lg">London, UK</span>
-                        </div>
-                        <div id="localTime" class="text-slate-400 text-sm mb-8 font-medium tracking-wide">Monday, 10:00 AM</div>
-                        
-                        <div class="flex items-center gap-6">
-                            <div class="relative">
-                                <span id="temperature" class="text-8xl md:text-9xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400">12°</span>
-                            </div>
-                            <div class="flex flex-col gap-1">
-                                <img id="weatherIcon" src="" alt="Weather Icon" class="w-20 h-20 object-contain drop-shadow-2xl">
-                                <span id="conditionText" class="text-2xl font-medium text-white">Partly Cloudy</span>
-                                <span class="text-slate-400 font-medium">Feels like <span id="feelsLike">10°</span></span>
-                            </div>
-                        </div>
+            <!-- Weather Hero Content -->
+            <div id="weatherContent" class="hero-content hidden">
+
+                <!-- Badge + Headline -->
+                <div class="hero-text animate-enter">
+                    <div class="forecast-badge">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12">
+                            <circle cx="12" cy="12" r="10" />
+                        </svg>
+                        Weather Forecast
                     </div>
-
-                    <!-- Air Quality Card -->
-                    <div class="glass-card rounded-2xl p-6 relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-green-500/20 rounded-full blur-3xl -mr-16 -mt-16 transition-colors duration-500" id="aqiGlow"></div>
-                        
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-8 h-8 rounded-lg bg-slate-700/50 flex items-center justify-center">
-                                <i class="fas fa-lungs text-green-400" id="aqiIcon"></i>
-                            </div>
-                            <h3 class="font-semibold text-lg">Air Quality Index</h3>
-                        </div>
-                        
-                        <div class="flex justify-between items-end mb-4">
-                            <div>
-                                <span class="text-sm text-slate-400 block mb-1">EPA Standard</span>
-                                <span id="aqiStatus" class="text-2xl font-bold text-green-400 transition-colors duration-300">Good</span>
-                            </div>
-                            <span id="aqiScore" class="text-4xl font-bold text-slate-600/30">1</span>
-                        </div>
-
-                        <!-- Progress Bar -->
-                        <div class="h-3 bg-slate-700/50 rounded-full overflow-hidden mb-6">
-                            <div id="aqiProgress" class="h-full bg-gradient-to-r from-green-400 via-yellow-400 to-red-500 w-[20%] transition-all duration-1000 ease-out"></div>
-                        </div>
-
-                        <!-- Pollutants Grid -->
-                        <div class="grid grid-cols-3 gap-3">
-                            <div class="bg-slate-800/40 rounded-xl p-3 text-center border border-white/5">
-                                <span class="block text-xs text-slate-400 mb-1">CO</span>
-                                <span id="coLevel" class="font-bold text-white">240</span>
-                            </div>
-                            <div class="bg-slate-800/40 rounded-xl p-3 text-center border border-white/5">
-                                <span class="block text-xs text-slate-400 mb-1">NO2</span>
-                                <span id="no2Level" class="font-bold text-white">12</span>
-                            </div>
-                            <div class="bg-slate-800/40 rounded-xl p-3 text-center border border-white/5">
-                                <span class="block text-xs text-slate-400 mb-1">O3</span>
-                                <span id="o3Level" class="font-bold text-white">45</span>
-                            </div>
-                        </div>
-                    </div>
+                    <h1 class="hero-headline" id="heroHeadline">Clear Sky Ahead</h1>
+                    <p class="hero-sub" id="heroSub">Sky conditions look favorable today with comfortable temperatures.
+                        Expect gentle breezes and excellent visibility throughout the day.</p>
                 </div>
 
-                <!-- Grid Stats -->
-                <h3 class="text-lg font-semibold text-white/90 mb-5 pl-1 animate-enter delay-100 border-l-4 border-blue-500 pl-3">Current Conditions</h3>
-                
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 animate-enter delay-200">
-                    <!-- Wind -->
-                    <div class="glass-card p-4 rounded-xl flex flex-col h-32 justify-between">
-                        <div class="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
-                            <i class="fas fa-wind"></i>
-                        </div>
-                        <div>
-                            <span class="text-slate-400 text-xs uppercase font-bold tracking-wider">Wind</span>
-                            <div id="windValue" class="text-xl font-bold text-white mt-1">12 km/h</div>
-                            <div id="windDir" class="text-xs text-slate-500 mt-1">NW</div>
-                        </div>
+                <!-- Bottom Forecast Strip -->
+                <div class="forecast-strip animate-enter delay-200">
+                    <div class="forecast-graph-container">
+                        <svg id="forecastGraph" class="forecast-svg" preserveAspectRatio="none"></svg>
                     </div>
-
-                    <!-- Humidity -->
-                    <div class="glass-card p-4 rounded-xl flex flex-col h-32 justify-between">
-                        <div class="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400">
-                            <i class="fas fa-tint"></i>
-                        </div>
-                        <div>
-                            <span class="text-slate-400 text-xs uppercase font-bold tracking-wider">Humidity</span>
-                            <div id="humidityValue" class="text-xl font-bold text-white mt-1">74%</div>
-                            <div class="text-xs text-slate-500 mt-1">Dew Point</div>
-                        </div>
+                    <div class="forecast-days" id="forecastDays">
+                        <!-- Populated by JS -->
                     </div>
-
-                    <!-- UV Index -->
-                    <div class="glass-card p-4 rounded-xl flex flex-col h-32 justify-between">
-                        <div class="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-400">
-                            <i class="fas fa-sun"></i>
-                        </div>
-                        <div>
-                            <span class="text-slate-400 text-xs uppercase font-bold tracking-wider">UV Index</span>
-                            <div id="uvValue" class="text-xl font-bold text-white mt-1">4</div>
-                            <div id="uvText" class="text-xs text-slate-500 mt-1">Moderate</div>
-                        </div>
-                    </div>
-
-                    <!-- Visibility -->
-                    <div class="glass-card p-4 rounded-xl flex flex-col h-32 justify-between">
-                        <div class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400">
-                            <i class="fas fa-eye"></i>
-                        </div>
-                        <div>
-                            <span class="text-slate-400 text-xs uppercase font-bold tracking-wider">Visibility</span>
-                            <div id="visValue" class="text-xl font-bold text-white mt-1">10 km</div>
-                            <div class="text-xs text-slate-500 mt-1">Clear view</div>
-                        </div>
-                    </div>
-
-                    <!-- Pressure -->
-                    <div class="glass-card p-4 rounded-xl flex flex-col h-32 justify-between">
-                        <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
-                            <i class="fas fa-tachometer-alt"></i>
-                        </div>
-                        <div>
-                            <span class="text-slate-400 text-xs uppercase font-bold tracking-wider">Pressure</span>
-                            <div id="pressureValue" class="text-xl font-bold text-white mt-1">1012 mb</div>
-                            <div class="text-xs text-slate-500 mt-1">Steady</div>
-                        </div>
-                    </div>
-
-                    <!-- Precipitation -->
-                    <div class="glass-card p-4 rounded-xl flex flex-col h-32 justify-between">
-                        <div class="w-8 h-8 rounded-lg bg-violet-500/10 flex items-center justify-center text-violet-400">
-                            <i class="fas fa-cloud-rain"></i>
-                        </div>
-                        <div>
-                            <span class="text-slate-400 text-xs uppercase font-bold tracking-wider">Precip</span>
-                            <div id="precipValue" class="text-xl font-bold text-white mt-1">0 mm</div>
-                            <div class="text-xs text-slate-500 mt-1">Last hour</div>
-                        </div>
+                    <div class="forecast-strip-meta animate-enter delay-100">
+                        <span class="strip-location">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" style="opacity:.7">
+                                <path
+                                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                            </svg>
+                            <span id="stripLocation">Loading…</span>
+                        </span>
+                        <span class="strip-time" id="stripTime">—</span>
                     </div>
                 </div>
 
             </div>
+
+            <!-- Footer – inside main panel, not a fixed overlay -->
+            <footer class="site-footer">
+                <div class="footer-left">
+                    <div class="footer-logo">
+                        <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+                            <path d="M12 2C8 2 5 5.5 5 9c0 4 3 7 7 10 4-3 7-6 7-10 0-3.5-3-7-7-7z"
+                                fill="rgba(78,205,196,0.9)" />
+                            <circle cx="12" cy="9" r="3" fill="white" opacity="0.9" />
+                        </svg>
+                    </div>
+                    <span class="footer-credit">Built by <strong>Jyotirmoy Laha</strong></span>
+                </div>
+                <div class="footer-divider"></div>
+                <div class="footer-socials">
+                    <a href="#" target="_blank" rel="noopener" title="GitHub" class="social-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15">
+                            <path
+                                d="M12 .3a12 12 0 00-3.8 23.38c.6.11.82-.26.82-.58v-2.16c-3.34.73-4.04-1.61-4.04-1.61a3.18 3.18 0 00-1.33-1.76c-1.09-.74.08-.73.08-.73a2.52 2.52 0 011.84 1.24 2.56 2.56 0 003.5 1 2.56 2.56 0 01.76-1.6c-2.67-.3-5.47-1.33-5.47-5.93a4.64 4.64 0 011.24-3.22 4.3 4.3 0 01.12-3.18s1-.32 3.3 1.23a11.38 11.38 0 016 0c2.28-1.55 3.28-1.23 3.28-1.23a4.3 4.3 0 01.12 3.18 4.64 4.64 0 011.24 3.22c0 4.61-2.81 5.63-5.48 5.93a2.86 2.86 0 01.82 2.22v3.29c0 .32.22.7.82.58A12 12 0 0012 .3z" />
+                        </svg>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener" title="LinkedIn" class="social-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15">
+                            <path
+                                d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.41v1.56h.05a3.74 3.74 0 013.37-1.85c3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 110-4.13 2.06 2.06 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77A1.75 1.75 0 000 1.73v20.54A1.75 1.75 0 001.77 24h20.45A1.76 1.76 0 0024 22.27V1.73A1.76 1.76 0 0022.22 0z" />
+                        </svg>
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="mailto:#" title="Email" class="social-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15"
+                            height="15">
+                            <rect x="2" y="4" width="20" height="16" rx="2" />
+                            <polyline points="22,7 12,13 2,7" />
+                        </svg>
+                        <span>Email</span>
+                    </a>
+                </div>
+                <div class="footer-copy">© 2026 J.SkyCast</div>
+            </footer>
         </main>
-    </div>
 
-    <!-- Load configuration (optional for local dev), then main app -->
+        <!-- ──────────────────────────────────
+         RIGHT SIDEBAR (320px)
+    ────────────────────────────────── -->
+        <aside class="sidebar-right">
+
+            <!-- Primary Location Card -->
+            <div class="primary-card glass-card animate-enter" id="primaryCard">
+                <div class="primary-card-header">
+                    <div class="location-pin">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                            <path
+                                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="primary-city" id="primaryCity">Kolkata</div>
+                        <div class="primary-country" id="primaryCountry">India</div>
+                    </div>
+                    <img id="primaryIcon" src="" alt="" class="primary-weather-icon">
+                </div>
+
+                <div class="primary-temp-row">
+                    <span class="temp-huge" id="primaryTemp">—°</span>
+                    <div class="temp-info">
+                        <span class="condition-pill" id="primaryCondition">Loading…</span>
+                        <span class="feels-like">Feels <span id="primaryFeels">—°</span></span>
+                    </div>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14"
+                            height="14">
+                            <path
+                                d="M9.59 4.59A2 2 0 1111 8H2m10.59 11.41A2 2 0 1014 16H2m15.73-8.27A2.5 2.5 0 1119.5 12H2" />
+                        </svg>
+                        <span id="statWind">— km/h</span>
+                        <div class="stat-label">Wind</div>
+                    </div>
+                    <div class="stat-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14"
+                            height="14">
+                            <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" />
+                        </svg>
+                        <span id="statHumidity">—%</span>
+                        <div class="stat-label">Humidity</div>
+                    </div>
+                    <div class="stat-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14"
+                            height="14">
+                            <circle cx="12" cy="12" r="2" />
+                            <path
+                                d="M12 0v2M12 22v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M0 12h2M22 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                        </svg>
+                        <span id="statUV">—</span>
+                        <div class="stat-label">UV Index</div>
+                    </div>
+                    <div class="stat-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14"
+                            height="14">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        <span id="statVis">— km</span>
+                        <div class="stat-label">Visibility</div>
+                    </div>
+                </div>
+
+                <!-- AQI badge -->
+                <div class="aqi-bar">
+                    <div class="aqi-label-row">
+                        <span class="aqi-text">Air Quality</span>
+                        <span class="aqi-status-text" id="aqiStatus">—</span>
+                    </div>
+                    <div class="aqi-track">
+                        <div class="aqi-fill" id="aqiProgress"></div>
+                    </div>
+                    <div class="aqi-pollutants">
+                        <span>CO <b id="coLevel">—</b></span>
+                        <span>NO₂ <b id="no2Level">—</b></span>
+                        <span>O₃ <b id="o3Level">—</b></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Expanded Detail Grid ── -->
+            <div class="detail-grid animate-enter delay-100">
+
+                <div class="detail-card glass-card-sm">
+                    <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            width="16" height="16">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                        </svg></div>
+                    <div class="detail-val" id="pressureValue">— mb</div>
+                    <div class="detail-lbl">Pressure</div>
+                </div>
+
+                <div class="detail-card glass-card-sm">
+                    <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            width="16" height="16">
+                            <line x1="8" y1="19" x2="8" y2="21" />
+                            <line x1="8" y1="13" x2="8" y2="15" />
+                            <line x1="16" y1="19" x2="16" y2="21" />
+                            <line x1="16" y1="13" x2="16" y2="15" />
+                            <line x1="12" y1="21" x2="12" y2="23" />
+                            <line x1="12" y1="15" x2="12" y2="17" />
+                            <path d="M20 16.58A5 5 0 0018 7h-1.26A8 8 0 104 15.25" />
+                        </svg></div>
+                    <div class="detail-val" id="precipValue">— mm</div>
+                    <div class="detail-lbl">Precip.</div>
+                </div>
+
+                <div class="detail-card glass-card-sm">
+                    <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            width="16" height="16">
+                            <path
+                                d="M9.59 4.59A2 2 0 1111 8H2m10.59 11.41A2 2 0 1014 16H2m15.73-8.27A2.5 2.5 0 1119.5 12H2" />
+                        </svg></div>
+                    <div class="detail-val" id="windDirVal">—</div>
+                    <div class="detail-lbl">Wind Dir.</div>
+                </div>
+
+                <div class="detail-card glass-card-sm">
+                    <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            width="16" height="16">
+                            <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" />
+                        </svg></div>
+                    <div class="detail-val" id="dewPointVal">—°</div>
+                    <div class="detail-lbl">Dew Point</div>
+                </div>
+
+                <div class="detail-card glass-card-sm">
+                    <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            width="16" height="16">
+                            <path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z" />
+                        </svg></div>
+                    <div class="detail-val" id="cloudVal">—%</div>
+                    <div class="detail-lbl">Cloud Cover</div>
+                </div>
+
+                <div class="detail-card glass-card-sm">
+                    <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            width="16" height="16">
+                            <rect x="3" y="4" width="18" height="18" rx="2" />
+                            <line x1="3" y1="10" x2="21" y2="10" />
+                        </svg></div>
+                    <div class="detail-val" id="localTimeVal">—</div>
+                    <div class="detail-lbl">Local Time</div>
+                </div>
+
+            </div>
+
+            <!-- ── Sunrise / Sunset card ── -->
+            <div class="sun-card glass-card animate-enter delay-200">
+                <div class="sun-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    Sun Schedule
+                </div>
+                <div class="sun-arc-wrap">
+                    <svg viewBox="0 0 200 80" class="sun-arc-svg" preserveAspectRatio="xMidYMid meet">
+                        <defs>
+                            <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#facc15" stop-opacity="0.3" />
+                                <stop offset="50%" stop-color="#fb923c" stop-opacity="0.6" />
+                                <stop offset="100%" stop-color="#f87171" stop-opacity="0.3" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M 15 72 Q 100 -5 185 72" fill="none" stroke="rgba(255,255,255,0.06)"
+                            stroke-width="8" />
+                        <path d="M 15 72 Q 100 -5 185 72" fill="none" stroke="url(#arcGrad)" stroke-width="2.5"
+                            stroke-linecap="round" />
+                        <circle id="sunPosDot" cx="100" cy="33" r="7" fill="#facc15"
+                            filter="drop-shadow(0 0 6px rgba(250,204,21,0.8))" />
+                        <circle cx="100" cy="33" r="12" fill="rgba(250,204,21,0.15)" id="sunGlowRing" />
+                    </svg>
+                </div>
+                <div class="sun-times">
+                    <div class="sun-time-item">
+                        <div class="sun-dot" style="background:#facc15"></div>
+                        <div>
+                            <div class="sun-time-val" id="sunriseVal">—</div>
+                            <div class="sun-time-lbl">Sunrise</div>
+                        </div>
+                    </div>
+                    <div class="sun-progress-bar">
+                        <div class="sun-progress-fill" id="sunProgressFill"></div>
+                    </div>
+                    <div class="sun-time-item">
+                        <div class="sun-dot" style="background:#fb923c"></div>
+                        <div>
+                            <div class="sun-time-val" id="sunsetVal">—</div>
+                            <div class="sun-time-lbl">Sunset</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+    </div><!-- /.dashboard -->
+
+
+
+    <!-- Scripts -->
     <script src="config.js" onerror="console.log('config.js not found, using embedded key')"></script>
     <script src="weather.js"></script>
 </body>
+
 </html>
