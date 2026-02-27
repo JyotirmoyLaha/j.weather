@@ -218,9 +218,24 @@ function updateUI(data) {
     document.getElementById('windDirVal').textContent = current.wind_dir || '—';
     document.getElementById('dewPointVal').textContent = `${Math.round(current.dewpoint_c ?? current.feelslike_c)}°`;
     document.getElementById('cloudVal').textContent = `${current.cloud}%`;
-    // Format local time as HH:MM from "YYYY-MM-DD HH:MM"
-    const timePart = location.localtime ? location.localtime.split(' ')[1] : '—';
-    document.getElementById('localTimeVal').textContent = timePart || '—';
+    // Format local time using timezone to avoid cached API time issues
+    if (window.localTimeInterval) clearInterval(window.localTimeInterval);
+    const updateLocalTime = () => {
+        try {
+            const timeStr = new Date().toLocaleTimeString('en-US', {
+                timeZone: location.tz_id,
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            });
+            document.getElementById('localTimeVal').textContent = timeStr;
+        } catch (e) {
+            const timePart = location.localtime ? location.localtime.split(' ')[1] : '—';
+            document.getElementById('localTimeVal').textContent = timePart;
+        }
+    };
+    updateLocalTime();
+    window.localTimeInterval = setInterval(updateLocalTime, 1000);
 
     // ── Sunrise / Sunset
     const todayForecast = forecast.forecastday[0];
