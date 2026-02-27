@@ -177,7 +177,8 @@ function updateUI(data) {
 
     // ── Strip location / time
     document.getElementById('stripLocation').textContent = `${location.name}, ${location.country}`;
-    document.getElementById('stripTime').textContent = location.localtime;
+    // date/time display removed from UI
+    // document.getElementById('stripTime').textContent = location.localtime;
 
     // ── Primary card: city / country
     document.getElementById('primaryCity').textContent = location.name;
@@ -325,8 +326,8 @@ function renderSunPosition(sunriseStr, sunsetStr, localTimeStr) {
         return h * 60 + min;
     }
     const rise = parseTime(sunriseStr);
-    const set  = parseTime(sunsetStr);
-    const now  = parseTime(localTimeStr ? localTimeStr.split(' ')[1] : null);
+    const set = parseTime(sunsetStr);
+    const now = parseTime(localTimeStr ? localTimeStr.split(' ')[1] : null);
     if (rise === null || set === null || now === null) return;
 
     const progress = Math.max(0, Math.min(1, (now - rise) / (set - rise)));
@@ -335,11 +336,11 @@ function renderSunPosition(sunriseStr, sunsetStr, localTimeStr) {
 
     // Quadratic bezier: M15,72 Q100,-5 185,72
     const t = progress;
-    const x = (1-t)*(1-t)*15 + 2*t*(1-t)*100 + t*t*185;
-    const y = (1-t)*(1-t)*72 + 2*t*(1-t)*(-5) + t*t*72;
-    const dot  = document.getElementById('sunPosDot');
+    const x = (1 - t) * (1 - t) * 15 + 2 * t * (1 - t) * 100 + t * t * 185;
+    const y = (1 - t) * (1 - t) * 72 + 2 * t * (1 - t) * (-5) + t * t * 72;
+    const dot = document.getElementById('sunPosDot');
     const glow = document.getElementById('sunGlowRing');
-    if (dot)  { dot.setAttribute('cx', x.toFixed(1));  dot.setAttribute('cy', y.toFixed(1)); }
+    if (dot) { dot.setAttribute('cx', x.toFixed(1)); dot.setAttribute('cy', y.toFixed(1)); }
     if (glow) { glow.setAttribute('cx', x.toFixed(1)); glow.setAttribute('cy', y.toFixed(1)); }
 }
 // ── LOCATION CARDS (fetch live data for 3 cities) ──────────────
