@@ -42,28 +42,20 @@
     padding: 0;
 }
 
-html,
-body {
+html {
     height: 100%;
-    overflow: hidden;
-}
-
-/* Mobile: allow full scroll */
-@media (max-width: 640px) {
-
-    html,
-    body {
-        height: auto;
-        overflow: auto;
-    }
 }
 
 body {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
     font-family: var(--font);
     background: var(--base-bg);
     color: var(--text-primary);
     user-select: none;
     -webkit-user-select: none;
+    overflow-x: hidden;
 }
 
 button {
@@ -83,8 +75,9 @@ input {
 .dashboard {
     display: grid;
     grid-template-columns: var(--sidebar-left-w) 1fr var(--sidebar-right-w);
-    height: 100vh;
+    height: calc(100vh - 44px);
     overflow: hidden;
+    flex: 1;
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -179,7 +172,7 @@ input {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    height: 100vh;
+    height: 100%;
 }
 
 /* Hero background photograph */
@@ -1071,28 +1064,38 @@ input {
 
 /* ══════════════════════════════════════════════════════════════
    RESPONSIVE – PHONE  (≤ 640px)
-   Full single-column stacked layout — all data visible
+   Full single-column stacked layout — spacious & readable
 ══════════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {
 
-    /* ── dashboard becomes a single column ── */
+    html {
+        overflow-x: hidden;
+    }
+
+    body {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    /* ── dashboard: single column, no fixed height ── */
     .dashboard {
         display: flex;
         flex-direction: column;
         height: auto;
-        min-height: 100vh;
+        min-height: auto;
         overflow: visible;
     }
 
-    /* ── LEFT sidebar becomes a top navigation bar ── */
+    /* ── LEFT sidebar → sticky top nav bar ── */
     .sidebar-left {
         flex-direction: row;
         width: 100%;
-        height: 52px;
-        padding: 0 12px;
+        height: 54px;
+        padding: 0 16px;
         border-right: none;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         justify-content: space-between;
+        align-items: center;
         flex-shrink: 0;
         position: sticky;
         top: 0;
@@ -1105,138 +1108,117 @@ input {
 
     .sidebar-left .sidebar-logo {
         margin-bottom: 0;
-        width: 36px;
-        height: 36px;
+        width: 38px;
+        height: 38px;
     }
 
     .sidebar-nav {
         flex-direction: row;
-        gap: 4px;
+        gap: 6px;
     }
 
     .sidebar-bottom {
         flex-direction: row;
-        gap: 4px;
+        gap: 6px;
     }
 
     .logo-tooltip {
         display: none;
     }
 
-    /* ── main panel – scrollable, full height ── */
+    /* ── main panel – natural height, scrollable ── */
     .main-panel {
         height: auto;
-        min-height: 70vh;
+        min-height: 60vh;
         overflow: visible;
         flex-shrink: 0;
     }
 
-    /* ── hero background ── */
+    /* ── hero background stretches with content ── */
     .hero-bg {
         position: absolute;
         inset: 0;
         min-height: 100%;
     }
 
-    /* ── top bar ── */
+    /* ── top bar: compact search ── */
     .top-bar {
-        padding: 10px 14px;
-        gap: 8px;
+        padding: 12px 16px;
+        gap: 10px;
     }
 
     .search-input-new {
-        width: 140px;
-        height: 34px;
-        font-size: 12px;
+        width: 150px;
+        height: 36px;
+        font-size: 13px;
     }
 
     .search-input-new:focus {
-        width: 160px;
+        width: 170px;
     }
 
-    /* ── hero text ── */
+    .icon-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    /* ── hero text: generous padding ── */
+    .hero-content {
+        padding-bottom: 0;
+    }
+
     .hero-text {
-        padding: 20px 16px 0;
-        gap: 10px;
+        padding: 24px 18px 16px;
+        gap: 12px;
         max-width: 100%;
+        justify-content: flex-start;
     }
 
     .hero-headline {
-        font-size: 26px;
+        font-size: clamp(24px, 7vw, 32px);
         line-height: 1.15;
     }
 
     .hero-sub {
-        font-size: 12px;
+        font-size: 13px;
+        line-height: 1.6;
         max-width: 100%;
     }
 
-    /* ── forecast strip ── */
+    .forecast-badge {
+        font-size: 10px;
+        padding: 5px 12px 5px 8px;
+    }
+
+    /* ── forecast strip: breathing room ── */
     .forecast-strip {
-        padding: 10px 12px 12px;
-        min-height: 90px;
+        padding: 14px 16px 16px;
+        min-height: 100px;
+    }
+
+    .forecast-strip-meta {
+        margin-bottom: 8px;
     }
 
     .forecast-day {
-        padding: 4px 3px 0;
+        padding: 5px 4px 0;
+        gap: 5px;
     }
 
     .day-temp {
-        font-size: 11px;
+        font-size: 12px;
     }
 
     .day-name {
-        font-size: 9px;
-    }
-
-    .day-icon {
-        width: 22px;
-        height: 22px;
-    }
-
-    /* ── footer ── */
-    .site-footer {
-        height: auto;
-        flex-wrap: wrap;
-        padding: 8px 14px;
-        gap: 6px;
-        justify-content: center;
-    }
-
-    .footer-divider {
-        display: none;
-    }
-
-    .footer-left {
-        flex-shrink: 1;
-    }
-
-    .footer-credit {
-        font-size: 10.5px;
-    }
-
-    .footer-socials {
-        gap: 2px;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .social-link span {
-        display: none;
-        /* icon only on phone */
-    }
-
-    .social-link {
-        padding: 5px 7px;
-    }
-
-    .footer-copy {
-        width: 100%;
-        text-align: center;
         font-size: 9.5px;
     }
 
-    /* ── RIGHT sidebar – full-width below main ── */
+    .day-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* ── RIGHT sidebar → full-width block below main ── */
     .sidebar-right {
         display: flex;
         flex-direction: column;
@@ -1245,52 +1227,78 @@ input {
         overflow: visible;
         border-left: none;
         border-top: 1px solid rgba(255, 255, 255, 0.06);
-        padding: 14px 14px 20px;
-        gap: 12px;
+        padding: 20px 16px 24px;
+        gap: 14px;
         background: var(--sidebar-bg);
     }
 
-    /* primary card – slight layout tweak */
+    /* ── primary card ── */
     .primary-card {
-        padding: 14px 14px 12px;
+        padding: 18px 16px 14px;
+        gap: 14px;
+    }
+
+    .primary-city {
+        font-size: 15px;
     }
 
     .temp-huge {
-        font-size: 44px;
+        font-size: 48px;
     }
 
-    /* stats always 4 cols */
+    .condition-pill {
+        font-size: 11px;
+        padding: 4px 12px;
+    }
+
+    /* ── stats: 4-col grid with comfortable spacing ── */
     .stats-row {
         grid-template-columns: repeat(4, 1fr);
-        gap: 6px;
-        padding: 8px 4px;
+        gap: 8px;
+        padding: 12px 8px;
     }
 
     .stat-item>span {
-        font-size: 11px;
+        font-size: 12px;
     }
 
     .stat-label {
-        font-size: 8px;
+        font-size: 9px;
     }
 
-    /* detail grid 3 cols for a bit tighter fit */
+    /* ── AQI ── */
+    .aqi-bar {
+        padding: 12px 14px;
+    }
+
+    /* ── detail grid: 3 cols ── */
     .detail-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
+        gap: 10px;
     }
 
-    /* mini stats 2-col */
+    .detail-card {
+        padding: 14px 12px 12px;
+        gap: 6px;
+    }
+
+    .detail-val {
+        font-size: 14px;
+    }
+
+    /* ── mini stats 2-col ── */
     .mini-stats-row {
         grid-template-columns: 1fr 1fr;
+        gap: 10px;
     }
 
-    /* location cards scroll row */
+    /* ── location cards: horizontal scroll row ── */
     .location-cards {
         flex-direction: row;
         overflow-x: auto;
         scrollbar-width: none;
         gap: 10px;
+        padding-bottom: 4px;
     }
 
     .location-cards::-webkit-scrollbar {
@@ -1298,22 +1306,67 @@ input {
     }
 
     .loc-card {
-        min-width: 150px;
+        min-width: 160px;
         flex-shrink: 0;
     }
 
-    /* sun card */
+    /* ── sun card ── */
     .sun-card {
-        padding: 12px 12px 10px;
+        padding: 14px 14px 12px;
     }
 
     .sun-arc-svg {
-        height: 50px;
+        height: 56px;
     }
 
-    /* other locations header */
+    /* ── other locations header ── */
     .other-locations-header {
         padding: 0 2px;
+    }
+
+    /* ── footer: 2-row compact layout ── */
+    .site-footer {
+        height: auto;
+        flex-wrap: wrap;
+        row-gap: 6px;
+        column-gap: 12px;
+        padding: 10px 16px;
+        justify-content: space-between;
+    }
+
+    .footer-divider {
+        display: none;
+    }
+
+    .footer-left {
+        flex-shrink: 0;
+    }
+
+    .footer-credit {
+        font-size: 11px;
+    }
+
+    .footer-socials {
+        gap: 2px;
+        justify-content: flex-end;
+        flex-wrap: nowrap;
+    }
+
+    .social-link span {
+        display: none;
+    }
+
+    .social-link {
+        padding: 6px 8px;
+        font-size: 0;
+    }
+
+    .footer-copy {
+        width: 100%;
+        text-align: center;
+        font-size: 10px;
+        padding-top: 2px;
+        opacity: 0.7;
     }
 }
 
