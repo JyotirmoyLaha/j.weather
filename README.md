@@ -1,75 +1,78 @@
-# 🌤️ J.SkyCast – Premium Weather Dashboard
-
 <div align="center">
 
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-Glassmorphism-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0a0a1a,50:0ea5e9,100:06b6d4&height=200&section=header&text=J.SkyCast&fontSize=80&fontColor=ffffff&fontAlignY=35&desc=Premium%20Weather%20Dashboard&descAlignY=60&descSize=20" />
 
-### 🚀 **[Live Demo](https://j-weather.onrender.com/)**
+[![Live Demo](https://img.shields.io/badge/🌤️_Live_Demo-j--weather.onrender.com-0ea5e9?style=for-the-badge)](https://j-weather.onrender.com/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-Glassmorphism-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![Render](https://img.shields.io/badge/Deployed_on-Render-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://render.com)
 
-*A premium glassmorphism weather dashboard with real-time forecasts, air quality monitoring, and dynamic sky visuals.*
+> *Real-time weather. Zero dependencies. Pure glassmorphism.*
 
 </div>
 
 ---
 
-## 📸 Preview
+## 🌍 What is J.SkyCast?
 
-Visit the live application: **[https://j-weather.onrender.com/](https://j-weather.onrender.com/)**
+J.SkyCast is a **production-grade weather dashboard** built entirely with vanilla HTML, CSS, and JavaScript — no frameworks, no bundlers, no build steps. It features a premium glassmorphism design system, real-time weather data, air quality monitoring, and dynamic sky visuals that adapt to live conditions.
+
+---
 
 ## 💡 Project Highlights
 
-This project showcases **professional-grade front-end development** with emphasis on:
+| | |
+|:--|:--|
+| 🪟 **Glassmorphism UI** | Frosted-glass cards, translucent panels, ambient glows |
+| ⚡ **Zero Dependencies** | Pure HTML + CSS + Vanilla JS — nothing else |
+| 🎨 **Dynamic Theming** | Backgrounds adapt to live weather conditions |
+| 🔐 **Secure** | API keys git-ignored with Base64 fallback for production |
+| 🚀 **CI/CD Deployed** | Live on Render with continuous deployment |
+| 🏗️ **Clean Architecture** | Modular, documented, separation of concerns |
 
-✅ **Glassmorphism UI** – Frosted-glass cards, translucent panels, and ambient glows  
-✅ **Zero Dependencies** – Pure HTML, CSS & vanilla JavaScript — no frameworks, no build tools  
-✅ **Dynamic Theming** – Background imagery and gradients adapt to live weather conditions  
-✅ **Security** – API key management via git-ignored config with Base64 fallback  
-✅ **Production Deployment** – Live on Render with CI/CD integration  
-✅ **Clean Architecture** – Modular, well-documented, separation of concerns  
+---
 
-## ✨ Key Features
+## ✨ Features
 
-### 🌍 Core Functionality
-- **Real-time Weather Data** – Current conditions for any city worldwide via WeatherAPI
-- **3-Day Forecast Strip** – Interactive forecast with SVG temperature graph
-- **Geolocation** – One-click "Use my location" for instant local weather
-- **Air Quality Index** – EPA-standard AQI with CO, NO₂, O₃ pollutant breakdown
-- **Comprehensive Metrics** – Temperature, humidity, wind speed & direction, UV index, visibility, pressure, dew point, cloud cover
-- **Sunrise / Sunset** – Animated sun arc with real-time position dot and daylight progress bar
+### 🌤️ Core Functionality
+- **Real-time Weather** — Current conditions for any city via WeatherAPI
+- **3-Day Forecast** — Interactive strip with SVG temperature graph
+- **Geolocation** — One-click instant local weather
+- **Air Quality Index** — EPA-standard AQI with CO, NO₂, O₃ breakdown
+- **Comprehensive Metrics** — Humidity, wind, UV index, pressure, dew point, cloud cover
+- **Sunrise / Sunset** — Animated sun arc with real-time position dot
 
 ### 🎨 Design & UI/UX
-- **Glassmorphism Design System** – `backdrop-filter: blur()`, translucent `rgba` backgrounds, and soft glow borders throughout
-- **CSS Grid Dashboard** – Three-column layout: left nav sidebar (60 px) · hero panel · right data sidebar (320 px)
-- **Dynamic Hero Backgrounds** – Unsplash sky photographs swap based on weather condition (fog, rain, clear, snow, etc.)
-- **SVG Inline Icons** – No icon library — all icons are hand-crafted inline SVGs for zero external requests
-- **Plus Jakarta Sans Typography** – Modern variable-weight Google Font (300–800)
-- **Micro-animations** – `slideUpFade` entrance animations, hover transforms, smooth transitions on every interactive element
-- **Glassmorphism Footer** – In-panel footer with `blur(20px)`, teal accent border glow, social links with labels, and copyright — scoped to the main panel only, never overlapping the right sidebar
+- **CSS Grid Dashboard** — Left nav (60px) · Hero panel · Right sidebar (320px)
+- **Dynamic Hero** — Unsplash sky photos swap based on weather condition
+- **Inline SVG Icons** — Hand-crafted, zero external icon requests
+- **Micro-animations** — `slideUpFade` entrances, hover transforms, smooth transitions
+- **Plus Jakarta Sans** — Modern variable-weight typography (300–800)
 
-### ⚡ Technical Excellence
-- **Async / Await** – Modern JavaScript asynchronous API calls with robust error handling
-- **Fetch API** – Native HTTP requests, zero external HTTP libraries
-- **DOM Manipulation** – Efficient targeted element updates and state management
-- **SVG Graph Rendering** – Programmatic SVG polyline temperature graph with gradient fill
-- **Browser APIs** – Geolocation API for device location, CSS custom properties for theming
-- **Responsive Breakpoints** – Tablet (≤ 900 px) and mobile (≤ 640 px) adaptations via pure CSS media queries
+### ⚙️ Technical Excellence
+- **Async/Await** — Modern JS with robust error handling
+- **Fetch API** — Native HTTP, no external libraries
+- **SVG Graph Rendering** — Programmatic polyline with gradient fill
+- **Browser APIs** — Geolocation + CSS custom properties
+- **Responsive** — Tablet (≤900px) and Mobile (≤640px) via pure CSS
+
+---
 
 ## 🛠️ Tech Stack
-
 ```
 ├── HTML5          Semantic markup, accessibility attributes
-├── CSS3           Grid, Flexbox, Custom Properties, Glassmorphism, Animations
-├── JavaScript     ES6+ — async/await, destructuring, template literals
+├── CSS3           Grid · Flexbox · Custom Properties · Glassmorphism · Animations
+├── JavaScript     ES6+ — async/await · destructuring · template literals
 ├── Google Fonts   Plus Jakarta Sans (variable weight)
-└── WeatherAPI     Real-time weather, forecast, air quality data
+└── WeatherAPI     Real-time weather · forecast · air quality data
 ```
 
 > **No build step • No frameworks • No bundlers.** Open `index.html` and go.
 
-## 📁 Project Structure
+---
 
+## 📁 Project Structure
 ```
 j.weather/
 ├── index.html              # Dashboard layout — grid, sidebar, hero, footer
@@ -82,91 +85,80 @@ j.weather/
 └── README.md               # This file
 ```
 
+---
+
 ## 🚀 Quick Start
 
-### Live Demo
-No installation required! Visit: **[https://j-weather.onrender.com/](https://j-weather.onrender.com/)**
+**No installation needed →** [https://j-weather.onrender.com/](https://j-weather.onrender.com/)
 
 ### Local Development
+```bash
+# 1. Clone
+git clone https://github.com/JyotirmoyLaha/j.weather.git
+cd j.weather
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/JyotirmoyLaha/j.weather.git
-   cd j.weather
-   ```
+# 2. Setup API key (optional — fallback key embedded)
+cp config.example.js config.js
+# Edit config.js with your key from https://www.weatherapi.com/
 
-2. **Set up API credentials** *(optional — a fallback key is embedded)*
-   ```bash
-   cp config.example.js config.js
-   # Edit config.js with your WeatherAPI key from https://www.weatherapi.com/
-   ```
+# 3. Serve locally
+python -m http.server 8787
+# or
+npx http-server -p 8787
 
-3. **Start a local server**
-   ```bash
-   python -m http.server 8787
-   # or
-   npx http-server -p 8787
-   ```
+# 4. Open
+# http://localhost:8787
+```
 
-4. **Open in browser**
-   ```
-   http://localhost:8787
-   ```
-
-## 🔐 Security
-
-- ✅ API keys stored in `config.js` (git-ignored)
-- ✅ Base64-encoded fallback for production deployment
-- ✅ Graceful fallback when `config.js` is missing
-- ✅ Comprehensive error handling for invalid credentials
-
-> **⚠️ Never commit `config.js` with a real API key to a public repository.**
-
-## 🎯 Performance
-
-- Zero external runtime dependencies
-- GPU-accelerated CSS animations (`transform`, `opacity`, `backdrop-filter`)
-- Minimal DOM updates — only changed elements are touched
-- Inline SVG icons — no additional network requests for icons
-- Lazy geolocation — only triggered on user action
+---
 
 ## 📱 Responsive Breakpoints
 
 | Breakpoint | Layout |
-|:--|:--|
-| **Desktop** (> 900 px) | Full 3-column grid: sidebar · hero · data panel |
-| **Tablet** (≤ 900 px) | Narrower right sidebar (260 px), compact hero text |
-| **Mobile** (≤ 640 px) | 2-column grid, right sidebar hidden |
-
-## 🤝 Contributing
-
-Contributions are welcome!
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/NewFeature`)
-3. Commit changes (`git commit -m 'Add NewFeature'`)
-4. Push to branch (`git push origin feature/NewFeature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is open source under the [MIT License](LICENSE).
-
-## 👨‍💻 Developer
-
-**Jyotirmoy Laha**
-- GitHub: [@JyotirmoyLaha](https://github.com/JyotirmoyLaha)
-- Email: jyotirmoy713128@gmail.com
-- Project: [j.weather](https://github.com/JyotirmoyLaha/j.weather)
-- Live Demo: [https://j-weather.onrender.com/](https://j-weather.onrender.com/)
-
-## 🙏 Acknowledgments
-
-- [WeatherAPI.com](https://www.weatherapi.com/) – Weather & air quality data provider
-- [Google Fonts](https://fonts.google.com/) – Plus Jakarta Sans typeface
-- [Unsplash](https://unsplash.com/) – Dynamic hero background photographs
-- [Render](https://render.com/) – Cloud hosting platform
+|:-----------|:-------|
+| **Desktop** (> 900px) | Full 3-column: sidebar · hero · data panel |
+| **Tablet** (≤ 900px) | Narrower sidebar (260px), compact hero |
+| **Mobile** (≤ 640px) | 2-column grid, right sidebar hidden |
 
 ---
 
-*Built with ❤️ by Jyotirmoy Laha · © 2025 J.SkyCast*
+## 🔐 Security
+
+- ✅ API keys stored in `config.js` (git-ignored)
+- ✅ Base64-encoded fallback for production
+- ✅ Graceful degradation when `config.js` is missing
+- ✅ Comprehensive error handling for invalid credentials
+
+> **⚠️ Never commit `config.js` with a real API key to a public repository.**
+
+---
+
+## 🎯 Performance
+
+- Zero external runtime dependencies
+- GPU-accelerated CSS (`transform`, `opacity`, `backdrop-filter`)
+- Minimal DOM updates — only changed elements are touched
+- Inline SVGs — no network requests for icons
+- Lazy geolocation — triggered only on user action
+
+---
+
+## 🙏 Acknowledgments
+
+[WeatherAPI.com](https://www.weatherapi.com/) · [Google Fonts](https://fonts.google.com/) · [Unsplash](https://unsplash.com/) · [Render](https://render.com/)
+
+---
+
+## 👨‍💻 Author
+
+<div align="center">
+
+**Jyotirmoy Laha**
+
+[![GitHub](https://img.shields.io/badge/GitHub-JyotirmoyLaha-181717?style=for-the-badge&logo=github)](https://github.com/JyotirmoyLaha)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-jyotirmoylaha2005-0A66C2?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/jyotirmoylaha2005)
+[![Portfolio](https://img.shields.io/badge/Portfolio-Live-0ea5e9?style=for-the-badge&logo=vercel)](https://jyotirmoy-portfolio.onrender.com)
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:06b6d4,50:0ea5e9,100:0a0a1a&height=100&section=footer" />
+
+</div>
